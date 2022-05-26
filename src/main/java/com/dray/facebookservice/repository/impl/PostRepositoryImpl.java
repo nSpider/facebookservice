@@ -42,7 +42,7 @@ public class PostRepositoryImpl implements PostRepository {
         TreeSet<Post> posts = new TreeSet<>((a, b) -> {
             int comp = Long.compare(b.getTimestamp(), a.getTimestamp());
             if (comp == 0) {
-                comp = 1;
+                comp = Integer.compare(b.hashCode(), a.hashCode());
             }
             return comp;
         });
