@@ -10,7 +10,7 @@ public class Post {
     public Post(String postId, String userId) {
         this.postId = postId;
         this.userId = userId;
-        timestamp = Instant.EPOCH.getEpochSecond();
+        timestamp = Instant.now().toEpochMilli();
     }
 
     public String getPostId() {

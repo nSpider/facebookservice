@@ -39,7 +39,13 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public List<String> getPostsForUsers(List<String> users) {
-        TreeSet<Post> posts = new TreeSet<>((a, b) -> Long.compare(b.getTimestamp(), a.getTimestamp()));
+        TreeSet<Post> posts = new TreeSet<>((a, b) -> {
+            int comp = Long.compare(b.getTimestamp(), a.getTimestamp());
+            if (comp == 0) {
+                comp = Integer.compare(b.hashCode(), a.hashCode());
+            }
+            return comp;
+        });
         users.forEach(user -> {
             userIdToSetOfPostIds.putIfAbsent(user, new HashSet<>());
             posts.addAll(userIdToSetOfPostIds.get(user)
